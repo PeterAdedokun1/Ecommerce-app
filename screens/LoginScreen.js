@@ -10,24 +10,41 @@ import {
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { navigate } = useNavigation();
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    const checkLoginStatus = () => {
+      const token = AsyncStorage.getItem("authToken");
+      if (token) {
+        navigation.replace("Main");
+      }
+    };
+    checkLoginStatus()
+  }, []);
+
   const handleLogin = () => {
     const user = { email, password };
-      axios
-        .post("http://10.0.2.2:3001/login", { user })
-        .then((res) => {
-          console.log(res);
-          const token = res.data.token
-        })
-        .catch((err) => console.log(err));
+    // axios
+    //   .post("http://10.0.2.2:3001/login", { email, password })
+    //   .then((res) => {
+    //     console.log(res);
+    //     const token = res.data.token;
+    //     AsyncStorage.setItem("authToken", token);
+    //     Alert.alert("Login sucessfull");
+    //   })
+    //   .catch((err) => {
+    //     Alert.alert("Login error", "Invalid Email");
+    //     console.log(err);
+    //   });
+    navigation.replace("Main");
   };
-
 
   return (
     <SafeAreaView
@@ -154,7 +171,7 @@ const LoginScreen = () => {
           </Text>
         </Pressable>
         <Pressable
-          onPress={() => navigate("Register")}
+          onPress={() => navigation.navigate("Register")}
           style={{ textAlign: "center", marginTop: 15 }}
         >
           <Text style={{ textAlign: "center", color: "gray", fontSize: 16 }}>

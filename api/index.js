@@ -159,7 +159,7 @@ app.post("/login", async (req, res) => {
     if (user.password !== password) {
       return res.status(201).json({message: "Invalid password"})
     }
-
+    
     //generate a token
 
     const token = jwt.sign({ userId: user._id, secretKey })
