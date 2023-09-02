@@ -12,10 +12,23 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { navigate } = useNavigation();
+  const handleLogin = () => {
+    const user = { email, password };
+      axios
+        .post("http://10.0.2.2:3001/login", { user })
+        .then((res) => {
+          console.log(res);
+          const token = res.data.token
+        })
+        .catch((err) => console.log(err));
+  };
+
+
   return (
     <SafeAreaView
       style={{ flex: 1, backgroundColor: "white", alignItems: "center" }}
@@ -127,6 +140,7 @@ const LoginScreen = () => {
             padding: 15,
             alignItems: "center",
           }}
+          onPress={handleLogin}
         >
           <Text
             style={{

@@ -7,7 +7,9 @@ import {
   View,
   Image,
   KeyboardAvoidingView,
+  Alert,
 } from "react-native";
+import axios from "axios";
 import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { useState } from "react";
@@ -18,6 +20,31 @@ const RegisterScreen = () => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const { navigate } = useNavigation();
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    //send a post request to the backend
+    const user = { name, email, password };
+    const headers = {
+      "Content-type": "application/json",
+      // Authorization: apiKey,
+    };
+    const url = "http://localhost:3001/register";
+    axios
+      .post("http://10.0.2.2:3001/register", { name, email, password })
+      .then(function (response) {
+        console.log("completed");
+        Alert.alert(
+          "Registered Sucessfully",
+          "You have sucessfully registered"
+        );
+        setName("");
+        setEmail("");
+        setPassword("");
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <SafeAreaView
       style={{ flex: 1, backgroundColor: "white", alignItems: "center" }}
@@ -38,7 +65,7 @@ const RegisterScreen = () => {
               color: "#041E42",
             }}
           >
-            Register to your account
+            Register to your accounts
           </Text>
         </View>
 
@@ -54,8 +81,11 @@ const RegisterScreen = () => {
               marginTop: 30,
             }}
           >
-            <Ionicons name="ios-person" size={24} color="gray" 
-            style={{ marginLeft: 8 }}
+            <Ionicons
+              name="ios-person"
+              size={24}
+              color="gray"
+              style={{ marginLeft: 8 }}
             />
             <TextInput
               placeholder="Enter your Name"
@@ -158,6 +188,7 @@ const RegisterScreen = () => {
             padding: 15,
             alignItems: "center",
           }}
+          onPress={handleRegister}
         >
           <Text
             style={{
