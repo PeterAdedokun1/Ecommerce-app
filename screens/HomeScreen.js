@@ -9,13 +9,15 @@ import {
   TextInput,
   Image,
 } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 //icons
 import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { SliderBox } from "react-native-image-slider-box";
+import axios from "axios";
+import ProductItem from "../components/ProductItem";
 const HomeScreen = () => {
   const list = [
     {
@@ -187,6 +189,20 @@ const HomeScreen = () => {
     },
   ];
 
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await axios("https://fakestoreapi.com/products");
+        setProducts(data);
+      } catch (error) {
+        console.log("error message", error);
+      }
+    };
+    fetchData();
+  }, []);
+  console.log(products);
   return (
     <SafeAreaView
       style={{
@@ -308,20 +324,65 @@ const HomeScreen = () => {
             </Pressable>
           ))}
         </View>
-        <Text style={{ height: 1, borderColor: "#D0D0D0", borderWidth: 2, marginTop: 15 }} />
-        <Text style={{ padding: 10, fontSize: 18, fontWeight: "bold" }}>Today's Deals</Text>
+        <Text
+          style={{
+            height: 1,
+            borderColor: "#D0D0D0",
+            borderWidth: 2,
+            marginTop: 15,
+          }}
+        />
+        <Text style={{ padding: 10, fontSize: 18, fontWeight: "bold" }}>
+          Today's Deals
+        </Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {
-            offers.map((item, index) => (
-              <Pressable key={index} style={{marginVertical: 10, alignItems: 'center'}}>
-                <Image source={{ uri: item?.image }} style={{ width: 150, height: 150, resizeMode: 'contain' }} />
-                <View style={{backgroundColor: "#E31A37", paddingVertical: 5, width: 130, justifyContent:"center", alignItems:"center",marginTop: 10, borderRadius: 4}}>
-                  <Text style={{textAlign: "center", color: "white", fontSize: 13, fontWeight: "bold"}}>Up to{item.offer }</Text>
-                </View>
-              </Pressable>
-            ))
-          }
+          {offers.map((item, index) => (
+            <Pressable
+              key={index}
+              style={{ marginVertical: 10, alignItems: "center" }}
+            >
+              <Image
+                source={{ uri: item?.image }}
+                style={{ width: 150, height: 150, resizeMode: "contain" }}
+              />
+              <View
+                style={{
+                  backgroundColor: "#E31A37",
+                  paddingVertical: 5,
+                  width: 130,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginTop: 10,
+                  borderRadius: 4,
+                }}
+              >
+                <Text
+                  style={{
+                    textAlign: "center",
+                    color: "white",
+                    fontSize: 13,
+                    fontWeight: "bold",
+                  }}
+                >
+                  Up to{item.offer}
+                </Text>
+              </View>
+            </Pressable>
+          ))}
         </ScrollView>
+        <Text
+          style={{
+            height: 1,
+            borderColor: "#D0D0D0",
+            borderWidth: 2,
+            marginTop: 15,
+          }}  
+        />
+        <View style={{flexDirection: 'row', alignItems: 'center' , justifyContent:"space-between", flexWrap: "wrap"}}>
+          {products.map((item, index) => (
+            <ProductItem {...item} key={index} />
+          ))}
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
