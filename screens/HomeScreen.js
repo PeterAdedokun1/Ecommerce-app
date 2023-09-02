@@ -201,8 +201,9 @@ const HomeScreen = () => {
       }
     };
     fetchData();
-  }, []);
+  }, []); 
   console.log(products);
+  console.log("opeyemi")
   return (
     <SafeAreaView
       style={{
