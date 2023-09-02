@@ -314,7 +314,10 @@ const HomeScreen = () => {
           {
             offers.map((item, index) => (
               <Pressable key={index} style={{marginVertical: 10, alignItems: 'center'}}>
-                <Image source={{ uri: item?.image }} style={{width: 150, height: 150, resizeMode: 'contain'}} />
+                <Image source={{ uri: item?.image }} style={{ width: 150, height: 150, resizeMode: 'contain' }} />
+                <View style={{backgroundColor: "#E31A37", paddingVertical: 5, width: 130, justifyContent:"center", alignItems:"center",marginTop: 10, borderRadius: 4}}>
+                  <Text style={{textAlign: "center", color: "white", fontSize: 13, fontWeight: "bold"}}>Up to{item.offer }</Text>
+                </View>
               </Pressable>
             ))
           }
