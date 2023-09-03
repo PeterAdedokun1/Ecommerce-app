@@ -13,6 +13,7 @@ import {
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 const ProductInfoScreen = () => {
@@ -151,6 +152,56 @@ const ProductInfoScreen = () => {
         </Text>
       </View>
       <Text style={{ height: 1, borderColor: "#D0D0D0", borderWidth: 1 }} />
+      <View style={{ padding: 10 }}>
+        <Text style={{ fontSize: 15, fontWeight: "bold", marginVertical: 5 }}>
+          Total: ₹{route?.params?.price}
+        </Text>
+        <Text style={{ color: "#00CED1" }}>
+          FREE delivery Tomorrow by 3 PM.order 10hrs
+        </Text>
+        <View
+          style={{
+            flexDirection: "row",
+            marginVertical: 5,
+            alignItems: "center",
+            gap: 5,
+          }}
+        >
+          <Ionicons name="location" size={24} color="black" />
+          <Text style={{ fontSize: 15, fontWeight: "500" }}>
+            Deliver to Abule oja
+          </Text>
+        </View>
+      </View>
+      <Text style={{ color: "green", marginHorizontal: 10, fontWeight: "500" }}>
+        In Stock
+      </Text>
+      <Pressable
+        style={{
+          backgroundColor: "#FFC72C",
+          padding: 10,
+          borderRadius: 20,
+          justifyContent: "center",
+          alignItems: "center",
+          marginHorizontal: 10,
+          marginVertical: 10,
+        }}
+      >
+        <Text>Add to Cart</Text>
+      </Pressable>
+      <Pressable
+        style={{
+          backgroundColor: "#FFAC1C",
+          padding: 10,
+          borderRadius: 20,
+          justifyContent: "center",
+          alignItems: "center",
+          marginHorizontal: 10,
+          marginVertical: 10,
+        }}
+      >
+        <Text>Buy Now</Text>
+      </Pressable>
     </ScrollView>
   );
 };
