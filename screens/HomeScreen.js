@@ -19,7 +19,9 @@ import { SliderBox } from "react-native-image-slider-box";
 import axios from "axios";
 import ProductItem from "../components/ProductItem";
 import DropDownPicker from "react-native-dropdown-picker";
+import { useNavigation } from "@react-navigation/native";
 const HomeScreen = () => {
+  const navigation = useNavigation()
   const list = [
     {
       id: "0",
@@ -200,17 +202,17 @@ const HomeScreen = () => {
     { label: "women's clothing", value: "women's clothing" },
   ]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { data } = await axios("https://fakestoreapi.com/products");
-        setProducts(data);
-      } catch (error) {
-        console.log("error message", error);
-      }
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const { data } = await axios("https://fakestoreapi.com/products");
+  //       setProducts(data);
+  //     } catch (error) {
+  //       console.log("error message", error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   const onGenderOpen = useCallback(() => {
     setCompanyOpen(false);
@@ -350,6 +352,18 @@ const HomeScreen = () => {
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {offers.map((item, index) => (
             <Pressable
+              onPress={() =>
+                navigation.navigate("info", {
+                  id: item.id,
+                  title: item.title,
+                  price: item.price,
+                  carouselImages: item.carouselImages,
+                  color: item.color,
+                  size: item.size,
+                  oldPrice: item.oldPrice,
+                  item: item,
+                })
+              }
               key={index}
               style={{ marginVertical: 10, alignItems: "center" }}
             >
