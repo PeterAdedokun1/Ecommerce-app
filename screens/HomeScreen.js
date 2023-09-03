@@ -22,8 +22,9 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import { BottomModal, ModalContent, SlideAnimation } from "react-native-modals";
+import { Entypo } from "@expo/vector-icons";
 const HomeScreen = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   const list = [
     {
       id: "0",
@@ -196,7 +197,7 @@ const HomeScreen = () => {
 
   const [products, setProducts] = useState([]);
   const [open, setOpen] = useState(false);
-  const [modalVisible, SetModalVisible] = useState(false)
+  const [modalVisible, SetModalVisible] = useState(false);
   const [category, setCategory] = useState("jewelery");
   const [items, setItems] = useState([
     { label: "Men's clothing", value: "men's clothing" },
@@ -221,10 +222,9 @@ const HomeScreen = () => {
     setCompanyOpen(false);
   }, []);
 
-
-  const { cart } = useSelector((state) => state.cart)
-  console.log(cart)
-  console.log("cart item")
+  const { cart } = useSelector((state) => state.cart);
+  console.log(cart);
+  console.log("cart item");
   return (
     <>
       <SafeAreaView
@@ -278,12 +278,12 @@ const HomeScreen = () => {
             }}
           >
             <Ionicons name="location-outline" size={24} color="black" />
-            <Pressable onPress={() => {
-              // console.log("pr3ssed;las")
-              SetModalVisible(!modalVisible)
-            }
-              
-            }>
+            <Pressable
+              onPress={() => {
+                // console.log("pr3ssed;las")
+                SetModalVisible(!modalVisible);
+              }}
+            >
               <Text style={{ fontSize: 13, fontWeight: "500" }}>
                 Deliver to abule oja - yaba lagos
               </Text>
@@ -490,10 +490,67 @@ const HomeScreen = () => {
         visible={modalVisible}
         onTouchOutside={() => SetModalVisible(!modalVisible)}
       >
-        <ModalContent style={{ width: "100%", height: 200 }}>
+        <ModalContent style={{ width: "100%", height: 400 }}>
+          <View style={{ marginBottom: 8 }}>
+            <Text style={{ fontStyle: 16, fontWeight: "500" }}>
+              {" "}
+              Choose your Location
+            </Text>
+            <Text style={{ marginTop: 5, fontSize: 16, color: "gray" }}>
+              Select to a delivery location to see product availablity and
+              delivery options
+            </Text>
+          </View>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {/* already added adress */}
+
+            <Pressable
+              style={{
+                width: 140,
+                height: 140,
+                borderColor: "#D0D0D0",
+                marginTop: 10,
+                borderWidth: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text
+                style={{
+                  textAlign: "center",
+                  color: "#0066b2",
+                  fontWeight: "500",
+                }}
+              >
+                Add an Address or pick-up point
+              </Text>
+            </Pressable>
+          </ScrollView>
           <View>
-            <Text>Choose your Location</Text>
-          <Text>Select to a delivery location to see product availablity and delivery options</Text>
+            <View
+              style={{ flexDirection: "row", alignItems: "center", gap: 5 }}
+            >
+              <Entypo name="location-pin" size={22} color="#0066b2" />
+              <Text style={{ color: "#0066b2", fontWeight: "400" }}>
+                Enter a Nigeria pincode
+              </Text>
+            </View>
+            <View
+              style={{ flexDirection: "row", alignItems: "center", gap: 5 }}
+            >
+              <Ionicons name="locate-sharp" size={22} color="#0066b2" />
+              <Text style={{ color: "#0066b2", fontWeight: "400" }}>
+                Use my current location
+              </Text>
+            </View>
+            <View
+              style={{ flexDirection: "row", alignItems: "center", gap: 5 }}
+            >
+              <AntDesign name="earth" size={22} color="#0066b2" />
+              <Text style={{ color: "#0066b2", fontWeight: "400" }}>
+                Deliver outside Nigeria
+              </Text>
+            </View>
           </View>
         </ModalContent>
       </BottomModal>
