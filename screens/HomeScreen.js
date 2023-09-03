@@ -334,6 +334,17 @@ const HomeScreen = () => {
                 alignItems: "center",
               }}
               key={index}
+              onPress={() =>
+                navigation.navigate("info", {
+                  id: item.id,
+                  title: item.title,
+                  price: item.price,
+                  carouselImages: item.carouselImages,
+                  color: item.color,
+                  size: item.size,
+                  oldPrice: item.oldPrice,
+                  item: item,
+                })}
             >
               <Image
                 source={{ uri: item.image }}
