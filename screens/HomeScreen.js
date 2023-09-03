@@ -493,7 +493,6 @@ const HomeScreen = () => {
         <ModalContent style={{ width: "100%", height: 400 }}>
           <View style={{ marginBottom: 8 }}>
             <Text style={{ fontStyle: 16, fontWeight: "500" }}>
-              {" "}
               Choose your Location
             </Text>
             <Text style={{ marginTop: 5, fontSize: 16, color: "gray" }}>
@@ -505,6 +504,10 @@ const HomeScreen = () => {
             {/* already added adress */}
 
             <Pressable
+              onPress={() => {
+                navigation.navigate("Address")
+                SetModalVisible(!modalVisible)
+              }}
               style={{
                 width: 140,
                 height: 140,
@@ -530,7 +533,7 @@ const HomeScreen = () => {
             <View
               style={{ flexDirection: "row", alignItems: "center", gap: 5 }}
             >
-              <Entypo name="location-pin" size={22} color="#0066b2" />
+              <Entypo name="location-pin" size={22  } color="#0066b2" />
               <Text style={{ color: "#0066b2", fontWeight: "400" }}>
                 Enter a Nigeria pincode
               </Text>
