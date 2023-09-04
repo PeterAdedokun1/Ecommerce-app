@@ -7,9 +7,7 @@ const nodemailer = require("nodemailer");
 const app = express();
 const port = 3001;
 const cors = require("cors");
-const bcrypt = require("bcryptjs")
-
-
+const bcrypt = require("bcryptjs");
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -40,7 +38,6 @@ mongoose
     console.log(err, "error connecting to MongoDB");
   });
 
-
 const User = require("./models/user");
 const Order = require("./models/order");
 //function to send verification email to the user
@@ -64,7 +61,7 @@ const sendVerificationEmail = async (email, verificationToken) => {
     text: `Please click the following link to verify your email: http://localhost:3001/verify/${verificationToken}`,
   };
 
-  // Send the emailuyyt  
+  // Send the emailuyyt
   try {
     await transporter.sendMail(mailOptions);
     console.log("Verification email sent successfully");
@@ -112,7 +109,6 @@ app.post("/register", async (req, res) => {
   }
 });
 
-
 //endpoint to verify the email
 app.get("/verify/:token", async (req, res) => {
   try {
@@ -136,19 +132,16 @@ app.get("/verify/:token", async (req, res) => {
   }
 });
 
-
-
 //endpoint to verify user
 const generateSecretKey = () => {
-  const secretKey = crypto.randomBytes(32).toString("hex")
-  return secretKey
-}
+  const secretKey = crypto.randomBytes(32).toString("hex");
+  return secretKey;
+};
 
-const secretKey = generateSecretKey()
+const secretKey = generateSecretKey();
 
 app.post("/login", async (req, res) => {
   try {
-
     const { email, password } = req.body;
     //check if the user exists
     const user = await User.findOne({ email });
@@ -157,17 +150,54 @@ app.post("/login", async (req, res) => {
     }
     //check if at all the password is correct
     if (user.password !== password) {
-      return res.status(201).json({message: "Invalid password"})
+      return res.status(201).json({ message: "Invalid password" });
     }
-    
+
     //generate a token
 
-    const token = jwt.sign({ userId: user._id, secretKey })
-    res.status(200).json({token})
+    const token = jwt.sign({ userId: user._id, secretKey });
+    res.status(200).json({ token });
   } catch (error) {
-    res.status(500).json({message: "Login failed"})
+    res.status(500).json({ message: "Login failed" });
   }
-})
+});
+
+//end point to create a new address
+
+app.post("/addresses", async (req, res) => {
+  try {
+    const { userId, addresses } = req.body;
+    //find the user by the userId
+    const user = await User.findById({ userId });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    //add new address to the user addresses array
+    user.addresses.push(addresses);
+    //save the updated user in the backend;
+    await user.save();
+    res.status(200).json({ message: "Address created Successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error adding address" });
+  }
+});
+
+//endpoint to get all the address of a particular user
+app.get("/addresses", async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const user = await User.findById({ userId });
+
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+    }
+    const addresses = user.addresses;
+    res.status(200).json({ addresses });
+  } catch (error) {
+    res.status(500).json({ message: "Error retrieving the addresses" });
+  }
+});
 
 app.listen(port, () => {
   console.log("server is running on port " + port);

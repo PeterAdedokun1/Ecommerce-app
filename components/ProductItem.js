@@ -30,7 +30,7 @@ const ProductItem = ({item}) => {
           justifyContent: "space-between",
         }}
       >
-        <Text style={{ fontStyle: 15, fontWeight: "bold" }}>
+        <Text style={{ fontSize: 15, fontWeight: "bold" }}>
           ₹{item?.price}
         </Text>
         <Text style={{ color: "#FFC72C", fontWeight: "bold" }}>

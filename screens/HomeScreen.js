@@ -205,6 +205,7 @@ const HomeScreen = () => {
     { label: "electronics", value: "electronics" },
     { label: "women's clothing", value: "women's clothing" },
   ]);
+ 
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -221,6 +222,7 @@ const HomeScreen = () => {
   const onGenderOpen = useCallback(() => {
     setCompanyOpen(false);
   }, []);
+  console.log("opeyemi")
 
   const { cart } = useSelector((state) => state.cart);
   console.log(cart);
@@ -492,7 +494,7 @@ const HomeScreen = () => {
       >
         <ModalContent style={{ width: "100%", height: 400 }}>
           <View style={{ marginBottom: 8 }}>
-            <Text style={{ fontStyle: 16, fontWeight: "500" }}>
+            <Text style={{ fontSize: 16, fontWeight: "500" }}>
               Choose your Location
             </Text>
             <Text style={{ marginTop: 5, fontSize: 16, color: "gray" }}>

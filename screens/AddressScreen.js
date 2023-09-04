@@ -1,8 +1,15 @@
 import { StyleSheet, Text, View, ScrollView, Pressable } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { TextInput } from "react-native";
 
 const AddressScreen = () => {
+    const [name, setName] = useState("");
+  const [mobileNo, setMobileNo] = useState("");
+  const [houseNo, setHouseNo] = useState("");
+  const [street, setStreet] = useState("");
+  const [landmark, setLandmark] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+
   return (
     <ScrollView style={{ marginTop: 50 }}>
       <View style={{ backgroundColor: "#00CED1", height: 50 }} />
@@ -26,6 +33,8 @@ const AddressScreen = () => {
             Full Name (first and name)
           </Text>
           <TextInput
+            value={name}
+            onChangeText={(text) => setName(text)}
             placeholder="Enter your name"
             placeholderTextColor={"black"}
             style={{
@@ -42,6 +51,8 @@ const AddressScreen = () => {
             Mobile Number
           </Text>
           <TextInput
+            value={mobileNo}
+            onChangeText={(text) => setMobileNo(text)}
             placeholder="Mobile Number"
             placeholderTextColor={"black"}
             style={{
@@ -58,6 +69,8 @@ const AddressScreen = () => {
             Flat,House No, Building,Company
           </Text>
           <TextInput
+            value={houseNo}
+            onChangeText={(text) => setHouseNo(text)}
             placeholder=""
             placeholderTextColor={"black"}
             style={{
@@ -74,6 +87,8 @@ const AddressScreen = () => {
             Area ,Street,sector, village
           </Text>
           <TextInput
+            value={street}
+            onChangeText={(text) => setStreet(text)}
             placeholder=""
             placeholderTextColor={"black"}
             style={{
@@ -88,6 +103,8 @@ const AddressScreen = () => {
         <View style={{ marginVertical: 10 }}>
           <Text style={{ fontSize: 15, fontWeight: "bold" }}>Landmark</Text>
           <TextInput
+            value={landmark}
+            onChangeText={(text) => setLandmark(text)}
             placeholder=""
             placeholderTextColor={"black"}
             style={{
@@ -102,6 +119,8 @@ const AddressScreen = () => {
         <View style={{ marginVertical: 10 }}>
           <Text style={{ fontSize: 15, fontWeight: "bold" }}>Pincode</Text>
           <TextInput
+            value={postalCode}
+            onChangeText={(text) => setPostalCode(text)}
             placeholder=""
             placeholderTextColor={"black"}
             style={{
@@ -112,11 +131,18 @@ const AddressScreen = () => {
               borderRadius: 5,
             }}
           />
-              </View>
-              
-              <Pressable style={{backgroundColor:"#ffc72c", padding: 19,borderRadius: 6, alignItems:"center"}}>  
-                  <Text style={{fontWeight: "bold",}}>Add Address</Text>
-              </Pressable>
+        </View>
+
+        <Pressable
+          style={{
+            backgroundColor: "#ffc72c",
+            padding: 19,
+            borderRadius: 6,
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ fontWeight: "bold" }}>Add Address</Text>
+        </Pressable>
       </View>
     </ScrollView>
   );
