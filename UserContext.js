@@ -1,17 +1,14 @@
-import { createContext,useState } from "react";
-
-
+import { createContext, useState } from "react";
 
 const UserType = createContext();
 
-const userContext = ({ children }) => {
-    const [ userId,setUserId] = useState("")
-    return (
-        <UserType value={{userId, setUserId}}>
-            {children}
-        </UserType>
-    )
-}
+const UserContext = ({ children }) => {
+  const [userId, setUserId] = useState("");
+  return (
+    <UserType.Provider value={{ userId, setUserId }}>
+      {children}
+    </UserType.Provider>
+  );
+};
 
-
-export {UserType, userContext}
+export { UserType, UserContext };
